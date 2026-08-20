@@ -1,0 +1,215 @@
+# 🤖 Gemini Tool Agent
+
+A simple AI-powered chat agent built with **Python, Flask, HTML, CSS, and JavaScript**.
+It provides a clean web-based interface where users can ask questions and receive AI-generated responses.
+
+## ✨ Features
+
+* 💬 Interactive AI chat interface
+* 🤖 AI-powered responses
+* ⚡ Flask backend
+* 🎨 Modern responsive UI
+* ⌨️ Press **Enter** to send messages
+* 🔄 Loading animation while waiting for a response
+* 📱 Mobile-friendly design
+* 🔐 Environment-variable support for API credentials
+
+## 🛠️ Tech Stack
+
+* **Python 3.10+**
+* **Flask**
+* **HTML5**
+* **CSS3**
+* **JavaScript**
+* **Gemini API / AI Backend**
+
+## 📁 Project Structure
+
+```text
+AI-DOC/
+│
+├── app.py
+│
+├── static/
+│   └── style.css
+│
+├── templates/
+│   └── index.html
+│
+├── .gitignore
+│
+└── README.md
+```
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/gemini-tool-agent.git
+cd gemini-tool-agent
+```
+
+### 2. Create a Virtual Environment
+
+Windows:
+
+```bash
+python -m venv .venv
+```
+
+Activate it:
+
+```bash
+.venv\Scripts\activate
+```
+
+Linux/macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install flask
+```
+
+If the project contains a `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 🔑 Configure API Credentials
+
+If your AI backend requires an API key, create a `.env` file:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+**Never commit your API key to GitHub.**
+
+Make sure `.env` is included in `.gitignore`.
+
+## ▶️ Run the Application
+
+Start the Flask server:
+
+```bash
+python app.py
+```
+
+You should see something similar to:
+
+```text
+Running on http://127.0.0.1:5000
+```
+
+Open your browser and visit:
+
+```text
+http://127.0.0.1:5000
+```
+
+## 💬 How It Works
+
+1. User enters a question in the chat interface.
+2. JavaScript sends the message to the Flask `/chat` endpoint.
+3. Flask processes the request using the configured AI backend.
+4. The AI response is returned as JSON.
+5. The response is displayed in the chat interface without refreshing the page.
+
+## 🔌 API Endpoint
+
+### `POST /chat`
+
+Request:
+
+```json
+{
+  "message": "What is semantic search?"
+}
+```
+
+Expected response:
+
+```json
+{
+  "reply": "Semantic search understands the meaning and context of a query..."
+}
+```
+
+## 🎨 UI
+
+The frontend contains:
+
+* AI assistant header
+* Chat history
+* User and AI message bubbles
+* Loading animation
+* Text input
+* Send button
+* Responsive layout
+
+## 🔒 Security
+
+For production use:
+
+* Never expose API keys in source code.
+* Store secrets in environment variables.
+* Keep `.env` out of Git.
+* Validate and sanitize user input.
+* Use HTTPS when deploying publicly.
+* Add authentication and rate limiting for production deployments.
+
+## 🧪 Development
+
+Run Flask in development mode:
+
+```bash
+python app.py
+```
+
+After making frontend changes, refresh the browser with:
+
+```text
+Ctrl + F5
+```
+
+## 🚧 Future Improvements
+
+* 📄 Document upload and analysis
+* 🧠 Conversation memory
+* 🎙️ Voice input
+* 🔊 AI voice responses
+* 🌙 Theme customization
+* 👤 User authentication
+* 💾 Chat history
+* 📊 AI usage analytics
+* ☁️ Cloud deployment
+* 📱 Progressive Web App support
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Commit your changes.
+5. Push the branch.
+6. Open a Pull Request.
+
+## 📄 License
+
+This project is available for educational and development purposes. Add an appropriate open-source license if you plan to distribute the project publicly.
+
+---
+
+### ⭐ If you find this project useful
+
+Give the repository a ⭐ on GitHub and feel free to contribute!
