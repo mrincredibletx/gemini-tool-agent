@@ -19,6 +19,7 @@ The application uses **Flask** as the backend server and **HTML, CSS, and JavaSc
 Users can enter questions through the chat interface, and the message is sent to the Flask backend using a REST API endpoint. The backend processes the request and returns the AI-generated response without refreshing the page.
 
 ---
+<img width="1529" height="873" alt="image" src="https://github.com/user-attachments/assets/fdd2c8f8-cf32-44bd-8498-c2ec1362326c" />
 
 ## ✨ Features
 
