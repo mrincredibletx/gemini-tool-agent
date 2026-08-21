@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gemini Tool Agent</title>
+
+    <!-- Flask Static CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="bot-icon">🤖</div>
+            <div>
+                <h1>Gemini Tool Agent</h1>
+                <p>Ask anything and get an AI-powered response</p>
+            </div>
+        </div>
+
+        <div id="chat-box">
+            <div class="welcome">
+                <div class="welcome-icon">✨</div>
+                <h2>Hello! 👋</h2>
+                <p>I'm your AI assistant. Ask me anything.</p>
+            </div>
+        </div>
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="message"
+                placeholder="Ask anything..."
+                autocomplete="off"
+            >
+
+            <button id="send-button" onclick="sendMessage()">
+                <span>Send</span>
+                <span>➤</span>
+            </button>
+
+        </div>
+
+        <div class="footer">
+            Gemini Tool Agent • AI responses may not always be accurate
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const input = document.getElementById("message");
+        const chatBox = document.getElementById("chat-box");
+        const sendButton = document.getElementById("send-button");
+
+
+        // Send message when pressing Enter
+        input.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendMessage();
+            }
+
+        });
+
+
+        async function sendMessage() {
+
+            const text = input.value.trim();
+
+            if (!text) {
+                return;
+            }
+
+
+            // Remove welcome message
+            const welcome = document.querySelector(".welcome");
+
+            if (welcome) {
+                welcome.remove();
+            }
+
+
+            // Add user message
+            chatBox.innerHTML += `
+                <div class="message-row user-row">
+                    <div class="avatar user-avatar">👤</div>
+
+                    <div class="message user-message">
+                        ${escapeHtml(text)}
+                    </div>
+                </div>
+            `;
+
+
+            input.value = "";
+
+            input.disabled = true;
+            sendButton.disabled = true;
+
+
+            // Loading message
+            const loadingId = "loading-" + Date.now();
+
+            chatBox.innerHTML += `
+                <div class="message-row bot-row" id="${loadingId}">
+                    <div class="avatar bot-avatar">🤖</div>
+
+                    <div class="message bot-message loading">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+
+            try {
+
+                const response = await fetch("/chat", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: text
+                    })
+
+                });
+
+
+                const data = await response.json();
+
+
+                // Remove loading
+                const loading = document.getElementById(loadingId);
+
+                if (loading) {
+                    loading.remove();
+                }
+
+
+                // Add AI response
+                chatBox.innerHTML += `
+                    <div class="message-row bot-row">
+
+                        <div class="avatar bot-avatar">🤖</div>
+
+                        <div class="message bot-message">
+                            ${escapeHtml(data.reply || "No response received.")}
+                        </div>
+
+                    </div>
+                `;
+
+
+            } catch (error) {
+
+                const loading = document.getElementById(loadingId);
+
+                if (loading) {
+                    loading.remove();
+                }
+
+
+                chatBox.innerHTML += `
+                    <div class="message-row bot-row">
+
+                        <div class="avatar bot-avatar">🤖</div>
+
+                        <div class="message bot-message error">
+                            ❌ Unable to connect to the AI server.
+                        </div>
+
+                    </div>
+                `;
+
+                console.error(error);
+
+            }
+
+
+            input.disabled = false;
+            sendButton.disabled = false;
+
+            input.focus();
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        }
+
+
+        // Prevent HTML injection
+        function escapeHtml(text) {
+
+            const div = document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+    </script>
+
+</body>
+</html>

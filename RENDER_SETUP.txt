@@ -1,0 +1,29 @@
+RENDER SETUP
+============
+
+Build Command:
+pip install -r requirements.txt
+
+Start Command:
+gunicorn app:app
+
+Environment Variable:
+GEMINI_API_KEY = your Gemini API key
+
+LOCAL SETUP
+===========
+
+1. Rename .env.example to .env
+2. Put your Gemini API key in .env:
+   GEMINI_API_KEY=your_key_here
+3. Run:
+   run_local.bat
+
+Or manually:
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+
+Open:
+http://127.0.0.1:5000
